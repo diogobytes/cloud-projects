@@ -18,10 +18,15 @@ echo "Welcome To Google Cloud Storage Uploader cli"
 
 FILE_PATH=$1
 STORAGE_BUCKET_NAME=$2
+re='^[0-9]+$'
+
+if [[ $FILE_PATH =~ $re ]]; then
+    echo "error: file path argument cannot be a number" >&2 exit 1
+fi
 
 if [[ -f $FILE_PATH ]]; then
-    echo "$FILE exists" 
+    echo "File: $FILE exists" 
 else
-    echo "Upss..$FILE doest not exist"
+    echo "Incorrect file path.. $FILE does not exist."
 fi
 #gcloud storage cp $FILE_PATH gs://$STORAGE_BUCKET_NAME
