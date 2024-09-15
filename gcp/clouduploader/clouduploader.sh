@@ -1,9 +1,8 @@
 #!/bin/bash
-
+set -e
 # This script is a simple CLI tool that allows users to upload files to Google Cloud Storage
 # Use case: ./clouduploader.sh <FILE_PATH> <STORAGE_BUCKET_NAME>
 # It checks for prerequisites and provides informative feedback during the upload process.
-
 echo "Welcome to the Google Cloud Storage Uploader CLI"
 
 # Prerequisites: Authenticate with Google Cloud
@@ -31,13 +30,14 @@ if [[ -f $FILE_PATH ]]; then
     echo "Starting file upload to the Google Cloud Storage bucket: $STORAGE_BUCKET_NAME..."
 
     # Attempt to copy the file to Google Cloud Storage
-    gcloud storage cp $FILE_PATH gs://$STORAGE_BUCKET_NAME
+    pv "$FILE_PATH"  | gcloud storage cp - gs://$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH")
 
     # Check if the upload was successful
     if [[ $? -eq 0 ]]; then
-        echo "Success: The file '$FILE_PATH' has been uploaded to the Google Cloud Storage bucket '$STORAGE_BUCKET_NAME'."
+        echo "Success: The file '$(basename "$FILE_PATH")' has been uploaded to the Google Cloud Storage bucket '$STORAGE_BUCKET_NAME'."
+        echo "Share Link: https://storage.cloud.google.com/$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH")"
     else
-        echo "Error: The file upload failed. Please check your internet connection, bucket permissions, and try again."
+        echo "Error: The file upload failed. Please check your internet connection, bucket permissions, bucket name and try again."
     fi
 else
     echo "Error: The file '$FILE_PATH' does not exist. Please provide a correct file path."
