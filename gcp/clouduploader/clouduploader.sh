@@ -29,11 +29,32 @@ if [[ -f $FILE_PATH ]]; then
     
    # Check if the file already exists in the bucket
 if gcloud storage ls gs://$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH") > /dev/null 2>&1; then
-    echo "Error: The file '$(basename "$FILE_PATH")' already exists in the bucket '$STORAGE_BUCKET_NAME'. Please choose from the following how you want to proceed: "
+    echo "Error: The file '$(basename "$FILE_PATH")' already exists in the bucket '$STORAGE_BUCKET_NAME'. Please choose from the following (number) how you want to proceed: "
     echo "[1] Overwrite"
     echo "[2] Skip"
     echo "[3] Rename the file"
+    read option
+    case $option in
 
+    1)
+        echo -n "You chosed to Overwrite"
+        ;;
+
+    2)
+         echo -n "You chosed to Skip"
+         exit 1
+        ;;
+
+    3)
+         echo -n "You chosed to Rename the file"
+         echo "Change the name to...?"
+         read file_name
+         # TODO: How to change the name here
+         exit 1
+        ;;
+
+    esac
+    
     
 fi
 
