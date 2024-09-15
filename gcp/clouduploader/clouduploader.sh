@@ -26,6 +26,17 @@ fi
 
 # Check if the file exists
 if [[ -f $FILE_PATH ]]; then
+    
+   # Check if the file already exists in the bucket
+if gcloud storage ls gs://$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH") > /dev/null 2>&1; then
+    echo "Error: The file '$(basename "$FILE_PATH")' already exists in the bucket '$STORAGE_BUCKET_NAME'. Please choose from the following how you want to proceed: "
+    echo "[1] Overwrite"
+    echo "[2] Skip"
+    echo "[3] Rename the file"
+
+    
+fi
+
     echo "File located: $FILE_PATH"
     echo "Starting file upload to the Google Cloud Storage bucket: $STORAGE_BUCKET_NAME..."
 
@@ -39,6 +50,7 @@ if [[ -f $FILE_PATH ]]; then
     else
         echo "Error: The file upload failed. Please check your internet connection, bucket permissions, bucket name and try again."
     fi
+    
 else
     echo "Error: The file '$FILE_PATH' does not exist. Please provide a correct file path."
 fi
