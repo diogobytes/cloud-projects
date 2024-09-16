@@ -49,8 +49,9 @@ if gcloud storage ls gs://$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH") > /dev/n
         echo -n "You chosed to Rename the file"
         echo "Change the name to...?"
         read file_name
-        # TODO: How to change the name here
-        exit 1
+        sudo mv $FILE_PATH $(dirname "$FILE_PATH")/$file_name
+        FILE_PATH=(dirname "$FILE_PATH")/$file_name
+        
     ;;
 
     esac
