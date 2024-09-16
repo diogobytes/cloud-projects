@@ -41,17 +41,17 @@ if gcloud storage ls gs://$STORAGE_BUCKET_NAME/$(basename "$FILE_PATH") > /dev/n
         ;;
 
     2)
-         echo -n "You chosed to Skip"
-         exit 1
-        ;;
+        echo -n "You chosed to Skip"
+        exit 1
+    ;;
 
     3)
-         echo -n "You chosed to Rename the file"
-         echo "Change the name to...?"
-         read file_name
-         # TODO: How to change the name here
-         exit 1
-        ;;
+        echo -n "You chosed to Rename the file"
+        echo "Change the name to...?"
+        read file_name
+        # TODO: How to change the name here
+        exit 1
+    ;;
 
     esac
     
