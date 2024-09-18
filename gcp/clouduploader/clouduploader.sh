@@ -85,7 +85,7 @@ if [[ -f "$FILE_PATH" ]]; then
     else
         echo "Error: Invalid choice. Please answer 'yes' or 'no'."
         exit 1
-    fi
+    fi3
 
     # Check if the upload was successful
     if [[ $? -eq 0 ]]; then
