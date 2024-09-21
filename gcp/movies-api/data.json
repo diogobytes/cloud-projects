@@ -15,8 +15,7 @@
     "rating": 8.8,
     "runtime": 148,
     "language": "English",
-    "poster_url": "https://image.example.com/inception.jpg",
-    "trailer_url": "https://trailer.example.com/inception.mp4"
+    "poster_url": "https://storage.cloud.google.com/example-121213/inception.jpg"
   },
   {
     "id": 2,
@@ -34,7 +33,6 @@
     "rating": 8.7,
     "runtime": 136,
     "language": "English",
-    "poster_url": "https://image.example.com/inception.jpg",
-    "trailer_url": "https://trailer.example.com/inception.mp4"
+    "poster_url": "https://storage.cloud.google.com/example-121213/matrix.jpg"
   }
 ]
