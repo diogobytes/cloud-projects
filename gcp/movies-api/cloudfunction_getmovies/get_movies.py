@@ -1,36 +1,39 @@
+import functions_framework
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import json
 
-
-def get_movies():
+@functions_framework.http
+def get_movies(request):
     """
-    Function to retrieve a list of movies from a Firestore database.
+    HTTP-triggered function to retrieve a list of movies from a Firestore database.
     
     This function initializes the Firebase Admin SDK, connects to the Firestore 
     database, and retrieves all documents from the 'movies' collection, converting 
-    them into a list of dictionaries. The list is then returned in JSON format.
+    them into a list of dictionaries. The list is then returned as a JSON response.
     """
+    try:
+        # Initialize Firebase Admin SDK with default application credentials
+        cred = credentials.ApplicationDefault()
+        firebase_admin.initialize_app(cred)
+        
+        # Create a Firestore client
+        db = firestore.client()
 
-    # Initialize Firebase Admin SDK with default application credentials
-    # This allows the function to authenticate and interact with Firebase services
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred)
+        # Stream all documents from the 'movies' collection
+        movies = db.collection('movies').stream()
 
-    # Create a Firestore client to interact with Firestore database
-    db = firestore.client()
+        # Store movie data in a list
+        list_movies = [movie.to_dict() for movie in movies]
 
-    # Stream all documents from the 'movies' collection in Firestore
-    get_movies = db.collection('movies').stream()
+        # Return the list of movies as a JSON response
+        return json.dumps(list_movies), 200, {'Content-Type': 'application/json'}
 
-    # Initialize an empty list to store movie data
-    list_movies = list()
+    except Exception as e:
+        # Log the error and return an error message as a JSON response
+        print(f"Error occurred: {str(e)}")
+        return json.dumps({"error": "An error occurred while fetching movies"}), 500, {'Content-Type': 'application/json'}
 
-    # Iterate through each movie document retrieved from Firestore
-    for movie in get_movies:
-        # Convert Firestore document to a Python dictionary and append it to the list
-        list_movies.append(movie.to_dict())
 
-    # Return the list of movies in JSON format, formatted with indentation for readability
-    return json.dumps(list_movies, indent=4)
+
