@@ -3,7 +3,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import json
 
-def getmovies():
+
+def get_movies():
     """
     Function to retrieve a list of movies from a Firestore database.
     
@@ -33,7 +34,3 @@ def getmovies():
 
     # Return the list of movies in JSON format, formatted with indentation for readability
     return json.dumps(list_movies, indent=4)
-
-if __name__ == '__main__':
-    # If running the script directly, invoke the getmovies function
-    getmovies()
