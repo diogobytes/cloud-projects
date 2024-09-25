@@ -1,23 +1,27 @@
 import functions_framework
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import credentials, firestore
 import json
 
+# Initialize Firebase Admin SDK once (outside the function)
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred)
+
+# Create Firestore client (also outside the function to reuse)
+db = firestore.client()
 
 @functions_framework.http
 def get_movies_by_year(request):
-
     try:
-        # Initialize Firebase Admin SDK with default application credentials
-        cred = credentials.ApplicationDefault()
-        firebase_admin.initialize_app(cred)
+        # Extract the release_year from the URL path
+        release_year = request.path.strip("/")
 
-        # Create a Firestore client
-        db = firestore.client()
+        # Ensure release_year is a string to match the Firestore data type
+        if not release_year:
+            return json.dumps({"error": "release_year in URL path is required"}), 400, {"Content-Type": "application/json"}
 
-        # Stream all documents from the 'movies' collection
-        movies = db.collection("movies").where("release_year", "==", request).stream()
+        # Query Firestore for movies with the given release year
+        movies = db.collection("movies").where("release_year", "==", release_year).stream()
 
         # Store movie data in a list
         list_movies = [movie.to_dict() for movie in movies]
