@@ -6,4 +6,3 @@
 
 # Ensure script exits on any command failure
 set -e 
-
