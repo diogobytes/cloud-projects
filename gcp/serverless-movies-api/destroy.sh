@@ -1,30 +1,29 @@
+#!/bin/bash
+
 # This script will be a one-shot script designed to fully destroy the entire environment.
 
 # Prerequisites
 # Authentication with: `gcloud auth application-default login`
 
-
 # Ensure script exits on any command failure
 set -e 
 
+# List of Cloud Functions to delete
+FUNCTIONS=("get_movies" "get_movies_by_year")
 
-destroy_cloudfunctions(){
-    echo "[*] Deleting Cloud Function Get Movies..."
-    if ! gcloud functions delete get_movies; then
-        echo "Something wrong happened, maybe the cloud function get movies does not exist."
-        exit 1
-    fi
-    echo "[*] Deleted function get_movies successfully"
-    echo "[*] Deleting Cloud Function Get Movies By year..."
-    if ! gcloud functions delete get_movies_by_year; then
-        echo "Something wrong happened, maybe the cloud function get movies by year does not exist."
-        exit 1
-    fi
-    echo "[*] Deleted function get_movies_by_year successfully"
-}
+destroy_cloudfunctions() {
+    for func_name in "${FUNCTIONS[@]}"; do
+        echo "[*] Deleting Cloud Function ${func_name}..."
+        if ! gcloud functions delete "${func_name}" --quiet; then
+            echo "[-] Something went wrong; the Cloud Function ${func_name} may not exist."
+            exit 1
+        fi
+        echo "[*] Deleted function ${func_name} successfully."
+    done
+}  # Closing brace for destroy_cloudfunctions
 
 main() {
     destroy_cloudfunctions
-
 }
+
 main
