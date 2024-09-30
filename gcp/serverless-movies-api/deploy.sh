@@ -39,6 +39,7 @@ handle_data() {
 
 deploy_cloud_functions_get_movies() {
     echo "[*] Deploying Cloud Function Get Movies"
+    cd ..
     if [ ! -d 'cloud_functions_get_movies' ]; then
       echo "Error: Directory 'cloud_functions_get_movies' does not exist"
       exit 1
@@ -57,9 +58,10 @@ deploy_cloud_functions_get_movies() {
     echo "[*] Get Movies Cloud Function deployed successfully."
 }
 deploy_cloud_functions_get_movies_by_year() {
-    echo "[*] Deploying Cloud Function Get Movies"
+    echo "[*] Deploying Cloud Function Get Movies By Year"
+    cd ..
     if [ ! -d 'cloud_functions_get_movies' ]; then
-      echo "Error: Directory 'cloud_functions_get_movies' does not exist"
+      echo "Error: Directory 'cloud_functions_get_movies_by_year' does not exist"
       exit 1
     fi
     cd cloud_functions_get_movies_by_year;
@@ -77,7 +79,7 @@ deploy_cloud_functions_get_movies_by_year() {
 }
 
 main() {
-check_gcloud_auth
+ check_gcloud_auth
  handle_data
  deploy_cloud_functions_get_movies
  deploy_cloud_functions_get_movies_by_year
