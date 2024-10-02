@@ -82,7 +82,7 @@ main() {
  check_gcloud_auth
  handle_data
  deploy_cloud_functions_get_movies
- deploy_cloud_functions_get_movies_by_year
+ #deploy_cloud_functions_get_movies_by_year
 }
 
 
