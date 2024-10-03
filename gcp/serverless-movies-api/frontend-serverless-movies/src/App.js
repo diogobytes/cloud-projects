@@ -27,8 +27,19 @@ function App() {
   },[])
   return (
     <div className="App">
+      <h1>Favorite movies</h1>
      {
-       data && data.length>0 && data.map((item)=><p>{item.about}</p>)
+       data && data.length > 0 && data.map((item, index) => (
+        <div key={index}>
+          <p>Movie name: {item.title}</p>
+          <p>Director: {item.director}</p>
+          <p>Rating: {item.rating}</p>
+          <img src={item.image_url} width={200} height={300}/>
+          
+        
+        </div>
+      
+      ))
      }
     </div>
   );
