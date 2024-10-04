@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  padding: 20px;
+  font-family: 'Arial',sans-serif;
+  background-color: #f4f4f4;
 }
 
 .App-logo {
@@ -35,4 +38,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+h1 {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.movie-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 20px;
+  padding: 10px;
+}
+.movie-card img {
+  width: 50%;
+ height: 50%;
+  border-radius: 10px;
+}
+
+.movie-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+}
+.movie-details {
+  font-size: 1em;
+  margin: 5px 0;
+  color: #666;
 }
