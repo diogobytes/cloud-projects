@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Using docker
+
+In order to run the frontend-serverless app as a container
+`docker build -t frontend-serverless .`
+
+Then,
+
+`docker run -p 8080:3000 frontend-serverless`
