@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "google" {
-  project = "resolute-ascent-429512-h0"
+  project = "<PROJECT_ID>"
   region = "europe-west1"
 }
 
